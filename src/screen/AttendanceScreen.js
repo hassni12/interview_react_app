@@ -1,10 +1,17 @@
-import React ,{useEffect}from 'react'
+import React ,{useEffect,useState}from 'react'
 import { useDispatch ,useSelector} from "react-redux"; 
 import { GetAttendance } from '../Reducer/auth';
 // GetAttendance
 export const AttendanceScreen = () => {
+    
     const { attendanceData}=useSelector((state)=>state.authReducer)
-    console.log(attendanceData)
+
+let employeeData=[]
+    for (let x in attendanceData) {
+        employeeData.push(attendanceData[x]) 
+      }
+     console.log(employeeData[1].attendance["2022-11-30"])
+
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(GetAttendance())
@@ -19,6 +26,11 @@ export const AttendanceScreen = () => {
           <img src="images/icon.png" className="img-fluid" alt="" />
         </div>
       </div>
+      <div className="row ">
+          <div className="col-sm-6 bg-primary text-white mx-auto mb-5  rounded-3">
+            <h1 className='py-2 text-center'>Attendance information </h1>
+          </div>
+        </div>
 
       <table className="table table-borderless">
   <thead>
@@ -29,26 +41,26 @@ export const AttendanceScreen = () => {
       <th scope="col">Status</th>
     </tr>
   </thead>
-  <tbody >
-    <tr >
+  {employeeData.map((value,key)=>
+   <tbody key={key}>
+    <tr  >
 
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
+      <td>{value.name}</td>
      
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+    </tr>
+    <tr >
+     
+    {/* <td>{value.attendance["2022-11-30"]}</td> */}
+     
     </tr>
     <tr>
 
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+     
     </tr>
   </tbody>
+  
+  )}
+ 
 </table>
       </section>
     

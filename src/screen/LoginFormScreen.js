@@ -34,11 +34,7 @@ export const LoginFormScreen = () => {
             <img src="images/icon.png" className="img-fluid" alt="" />
           </div>
         </div>
-        <div className="row">
-          <div className="col-lg-12 col-md-6 col-12">
-            <h1>Attendance information </h1>
-          </div>
-        </div>
+       
         <div className="row">
           <div className="col-lg-8 col-md-6 col-12 ">
             <img

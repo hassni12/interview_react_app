@@ -24,6 +24,7 @@ export const RegisterUser = createAsyncThunk("register", async (data) => {
 export const GetAttendance = createAsyncThunk("user_profile", async () => {
   try {
     const res = await ApiHandler().get("/test");
+    console.log(res.data);
     return res.data;
   } catch (error) {
     return error.response.data;
@@ -72,7 +73,7 @@ const authSlice = createSlice({
     },
     [GetAttendance.fulfilled]: (state, action) => {
       state.get_attendance_loading = false;
-      state.attendanceData = action.payload.data;
+      state.attendanceData = action.payload;
     },
   },
 });
