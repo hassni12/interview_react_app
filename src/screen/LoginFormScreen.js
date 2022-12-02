@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 // LoginThunk
 import { useDispatch } from "react-redux";
@@ -6,10 +6,14 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { LoginThunk } from "../Reducer/auth";
 import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const LoginFormScreen = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
+  const { token } = useSelector((state) => state.authReducer);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,6 +30,11 @@ export const LoginFormScreen = () => {
     Navigate("/attendance");
     console.log(formData);
   };
+  useEffect(() => {
+    if (token) {
+      Navigate("/attendance");
+    }
+  }, [Navigate]);
   return (
     <>
       <section className="container">

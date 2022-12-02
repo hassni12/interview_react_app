@@ -5,14 +5,13 @@ import PhoneInput from "react-phone-input-labelled";
 import "react-phone-input-labelled/dist/style.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-
+import { useSelector } from "react-redux";
 
 import { RegisterUser } from "../Reducer/auth";
-// RegisterUser
+
 export const SignUpScreen = () => {
   const [visible, setvisible] = useState(0);
-  const { token}=useSelector((state)=>state.authReducer)
+  const { token } = useSelector((state) => state.authReducer);
 
   const Navigate = useNavigate();
 
@@ -28,19 +27,21 @@ export const SignUpScreen = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    if (formData.password.length!==8){
+      toast.error("Password must be 8 characters long");
+      return;
+    }
     RegisterUser(formData);
     toast.success("Successfully Register ");
     e.target.reset();
-    Navigate('/login')
+    Navigate("/login");
   };
 
-  useEffect(()=>{
-if(token){
-Navigate("/attendance")
-}else{
-  Navigate("/login")
-}
-},[])
+  useEffect(() => {
+    if (token) {
+      Navigate("/attendance");
+    }
+  }, [Navigate]);
   return (
     <section className="container">
       <div className="row">
