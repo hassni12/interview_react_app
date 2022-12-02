@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { SignUpScreen } from './screen/SignUpScreen';
+import {Routes,Route}from 'react-router-dom'
+import {LoginFormScreen} from './screen/LoginFormScreen'
+import { AttendanceScreen } from './screen/AttendanceScreen';
+import { useSelector } from 'react-redux';
+// useSelector
+// AttendanceScreen
+// FirstSingUpScreen
 function App() {
+  const { token}=useSelector((state)=>state.authReducer)
+  console.log(token);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Routes>
+    {token? <Route path='/attendance' element={<AttendanceScreen/>}/>:<>
+      <Route  path='/'  element={<SignUpScreen/>} />
+    <Route  path='/login'  element={<LoginFormScreen/>} /></>}
+  
+
+   </Routes>
   );
 }
 
