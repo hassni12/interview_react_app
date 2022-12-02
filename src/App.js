@@ -5,9 +5,8 @@ import {Routes,Route}from 'react-router-dom'
 import {LoginFormScreen} from './screen/LoginFormScreen'
 import { AttendanceScreen } from './screen/AttendanceScreen';
 import { useSelector } from 'react-redux';
-// useSelector
-// AttendanceScreen
-// FirstSingUpScreen
+import { NotFound } from './Components/NotFound';
+
 function App() {
   const { token}=useSelector((state)=>state.authReducer)
   console.log(token);
@@ -17,7 +16,7 @@ function App() {
       <Route  path='/'  element={<SignUpScreen/>} />
     <Route  path='/login'  element={<LoginFormScreen/>} /></>}
   
-
+    <Route path='*' element={<NotFound/>}></Route>
    </Routes>
   );
 }

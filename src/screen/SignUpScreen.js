@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import PhoneInput from "react-phone-input-labelled";
 import "react-phone-input-labelled/dist/style.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 
 import { RegisterUser } from "../Reducer/auth";
 // RegisterUser
 export const SignUpScreen = () => {
   const [visible, setvisible] = useState(0);
+  const { token}=useSelector((state)=>state.authReducer)
+
   const Navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -30,6 +33,14 @@ export const SignUpScreen = () => {
     e.target.reset();
     Navigate('/login')
   };
+
+  useEffect(()=>{
+if(token){
+Navigate("/attendance")
+}else{
+  Navigate("/login")
+}
+},[])
   return (
     <section className="container">
       <div className="row">
