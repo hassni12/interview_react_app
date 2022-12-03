@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // LoginThunk
 import { useDispatch } from "react-redux";
@@ -6,18 +6,24 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { LoginThunk } from "../Reducer/auth";
 import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const LoginFormScreen = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  const { token } = useSelector((state) => state.authReducer);
-
+  const { token, error } = useSelector((state) => state.authReducer);
+console.log(token);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+ useEffect(() => {
+    if(token&&!error){
+    Navigate("/attendance")  
+    };
+  }, [Navigate,token]);
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,16 +31,11 @@ export const LoginFormScreen = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(LoginThunk(formData));
-    toast.success("Successfully Login ");
     e.target.reset(); //add this line
     Navigate("/attendance");
-    console.log(formData);
+
   };
-  useEffect(() => {
-    if (token) {
-      Navigate("/attendance");
-    }
-  }, [Navigate]);
+  
   return (
     <>
       <section className="container">
@@ -43,7 +44,7 @@ export const LoginFormScreen = () => {
             <img src="images/icon.png" className="img-fluid" alt="" />
           </div>
         </div>
-       
+
         <div className="row">
           <div className="col-lg-8 col-md-6 col-12 ">
             <img

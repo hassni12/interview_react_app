@@ -8,15 +8,15 @@ import { useSelector } from 'react-redux';
 import { NotFound } from './Components/NotFound';
 
 function App() {
-  const { token}=useSelector((state)=>state.authReducer)
+  const { token ,error}=useSelector((state)=>state.authReducer)
   console.log(token);
   return (
    <Routes>
-    {token? <Route path='/attendance' element={<AttendanceScreen/>}/>:<>
+    {token ? <Route path='/attendance' element={<AttendanceScreen/>}/>:<>
       <Route  path='/'  element={<SignUpScreen/>} />
     <Route  path='/login'  element={<LoginFormScreen/>} /></>}
   
-    <Route path='*' element={<NotFound/>}></Route>
+    {/* <Route path='*' element={<NotFound/>}></Route> */}
    </Routes>
   );
 }

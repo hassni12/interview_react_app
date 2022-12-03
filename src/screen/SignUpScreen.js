@@ -11,7 +11,7 @@ import { RegisterUser } from "../Reducer/auth";
 
 export const SignUpScreen = () => {
   const [visible, setvisible] = useState(0);
-  const { token } = useSelector((state) => state.authReducer);
+  // const { token } = useSelector((state) => state.authReducer);
 
   const Navigate = useNavigate();
 
@@ -27,21 +27,17 @@ export const SignUpScreen = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (formData.password.length!==8){
+    if (formData.password.length !== 8) {
       toast.error("Password must be 8 characters long");
       return;
+    } else {
+      RegisterUser(formData);
+      toast.success("Successfully Register ");
+      e.target.reset();
+      Navigate("/login");
     }
-    RegisterUser(formData);
-    toast.success("Successfully Register ");
-    e.target.reset();
-    Navigate("/login");
   };
 
-  useEffect(() => {
-    if (token) {
-      Navigate("/attendance");
-    }
-  }, [Navigate]);
   return (
     <section className="container">
       <div className="row">

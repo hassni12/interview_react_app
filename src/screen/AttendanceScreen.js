@@ -13,6 +13,8 @@ export const AttendanceScreen = () => {
   useEffect(() => {
     dispatch(GetAttendance());
   }, [dispatch]);
+
+
   return (
     <>
       <section className="container">
