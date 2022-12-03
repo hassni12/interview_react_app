@@ -16,7 +16,7 @@ function App() {
       <Route  path='/'  element={<SignUpScreen/>} />
     <Route  path='/login'  element={<LoginFormScreen/>} /></>}
   
-    {/* <Route path='*' element={<NotFound/>}></Route> */}
+    <Route path='*' element={<NotFound/>}></Route>
    </Routes>
   );
 }
