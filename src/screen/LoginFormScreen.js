@@ -12,17 +12,19 @@ export const LoginFormScreen = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const { token, error } = useSelector((state) => state.authReducer);
+  useEffect(()=>{
+    if(token){
+      Navigate("/attendance");
+    }
+  })
+ console.log( );
 console.log(token);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
- useEffect(() => {
-    if(token&&!error){
-    Navigate("/attendance")  
-    };
-  }, [Navigate,token]);
+
  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,10 +34,9 @@ console.log(token);
     e.preventDefault();
     dispatch(LoginThunk(formData));
     e.target.reset(); //add this line
-    Navigate("/attendance");
 
   };
-  
+
   return (
     <>
       <section className="container">

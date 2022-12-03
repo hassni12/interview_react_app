@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiHandler } from "./api/apiHandler";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 export const LoginThunk = createAsyncThunk("login_Thunk", async (data2) => {
   try {
@@ -45,16 +47,19 @@ const authSlice = createSlice({
     },
 
     [LoginThunk.fulfilled]: (state, action) => {
-      console.log(action.payload.error);
-      if (action?.payload?.error) {
+      // console.log(action.payload.error);
+      if (action?.payload!==action?.payload["access_token"]&&action?.payload?.error) {
         state.error = action?.payload?.error;
         toast.error(action?.payload?.error);
       } else {
         state.token = action?.payload["access_token"];
         localStorage.setItem("token", action?.payload["access_token"]);
         toast.success("Successfully Login ");
+        
         state.loading = false;
+        window.location.href="/attendance"
       }
+     
     },
     [LoginThunk.rejected]: (state, action) => {
       state.loading = false;
@@ -63,6 +68,7 @@ const authSlice = createSlice({
       console.log(action.payload, "payload");
       if (action.payload) {
         toast.success("User Register Successfully");
+       
       } else {
         toast.error(action?.payload?.error);
       }
